@@ -18,9 +18,9 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-gradient-to-r from-accent to-pink-600 text-white px-8 py-3.5 font-semibold tracking-wide
+    @apply bg-gradient-to-r from-accent to-coral text-white px-8 py-3.5 font-semibold tracking-wide
            rounded-full shadow-glow
-           transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(233,69,96,0.5)]
+           transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,107,53,0.5)]
            disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100;
   }
 
@@ -56,7 +56,7 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent via-pink-400 to-gold;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent via-sunset to-ocean;
   }
 }
 

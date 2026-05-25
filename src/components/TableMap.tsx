@@ -40,8 +40,8 @@ export default function TableMap({
                   isBooked
                     ? "bg-white/5 border border-white/5 text-white/20 cursor-not-allowed"
                     : isSelected
-                    ? "bg-gradient-to-br from-accent to-pink-600 border border-accent/50 text-white scale-110 shadow-glow"
-                    : "glass-card hover:bg-white/10 hover:border-accent/30 hover:scale-105 cursor-pointer"
+                    ? "bg-gradient-to-br from-accent to-sunset border border-accent/50 text-white scale-110 shadow-glow"
+                    : "glass-card hover:bg-white/10 hover:border-ocean/40 hover:scale-105 cursor-pointer"
                 }
               `}
             >

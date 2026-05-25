@@ -16,15 +16,15 @@ export default function AvailabilityBar({ total, booked }: AvailabilityBarProps)
   if (percentage >= 100) {
     statusText = "Sold Out"
     statusColor = "text-red-400"
-    barGradient = "from-red-500 to-red-600"
+    barGradient = "from-red-500 to-red-400"
   } else if (percentage >= 70) {
     statusText = "Σχεδόν Full"
-    statusColor = "text-gold"
-    barGradient = "from-gold to-orange-500"
+    statusColor = "text-sunset"
+    barGradient = "from-sunset to-accent"
   } else {
     statusText = "Διαθέσιμο"
-    statusColor = "text-emerald-400"
-    barGradient = "from-emerald-400 to-teal-500"
+    statusColor = "text-ocean"
+    barGradient = "from-ocean to-sky"
   }
 
   return (
@@ -32,7 +32,7 @@ export default function AvailabilityBar({ total, booked }: AvailabilityBarProps)
       <div className="glass-card p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2.5">
-            <span className={`w-2.5 h-2.5 rounded-full ${percentage >= 100 ? 'bg-red-400' : percentage >= 70 ? 'bg-gold' : 'bg-emerald-400'} animate-pulse`} />
+            <span className={`w-2.5 h-2.5 rounded-full ${percentage >= 100 ? 'bg-red-400' : percentage >= 70 ? 'bg-sunset' : 'bg-ocean'} animate-pulse`} />
             <span className={`text-sm font-semibold ${statusColor}`}>{statusText}</span>
           </div>
           <span className="text-sm text-muted">
