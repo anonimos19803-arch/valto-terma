@@ -65,15 +65,18 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-dark">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+          <span className="text-sm text-muted">Loading...</span>
+        </div>
       </div>
     )
   }
 
   if (!event || !tableData) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-gray-400">
+      <div className="min-h-screen flex items-center justify-center bg-dark text-muted">
         Δεν βρέθηκε event
       </div>
     )
@@ -82,7 +85,7 @@ export default function HomePage() {
   const isFull = tableData.available <= 0
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-dark">
       <Hero
         title={event.title}
         description={event.description}
@@ -111,8 +114,9 @@ export default function HomePage() {
         onSuccess={handleBookingSuccess}
       />
 
-      <footer className="py-8 text-center text-xs text-gray-300 tracking-wide">
-        <p>ΒάΛτο Τέρμα</p>
+      <footer className="py-12 text-center border-t border-white/5">
+        <p className="text-sm text-gradient font-heading font-bold tracking-wide">ΒάΛτο Τέρμα</p>
+        <p className="text-xs text-muted mt-2">Made with love</p>
       </footer>
     </main>
   )

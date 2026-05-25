@@ -8,44 +8,55 @@
   }
 
   body {
-    @apply font-body text-primary bg-white antialiased;
+    @apply font-body text-white bg-dark antialiased;
   }
 
   ::selection {
-    @apply bg-primary text-white;
+    @apply bg-accent text-white;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-white px-6 py-3 font-medium tracking-wide
-           transition-all duration-300 hover:bg-secondary
-           disabled:opacity-40 disabled:cursor-not-allowed;
+    @apply bg-gradient-to-r from-accent to-pink-600 text-white px-8 py-3.5 font-semibold tracking-wide
+           rounded-full shadow-glow
+           transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(233,69,96,0.5)]
+           disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100;
   }
 
   .btn-outline {
-    @apply border border-primary text-primary px-6 py-3 font-medium tracking-wide
-           transition-all duration-300 hover:bg-primary hover:text-white;
+    @apply border border-white/20 text-white px-6 py-3 font-medium tracking-wide rounded-full
+           backdrop-blur-sm bg-white/5
+           transition-all duration-300 hover:bg-white/10 hover:border-white/40;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 border border-gray-200 bg-white text-primary
-           placeholder:text-gray-400 focus:outline-none focus:border-primary
-           transition-colors duration-200;
+    @apply w-full px-5 py-3.5 rounded-xl border border-white/10 bg-white/5 text-white
+           placeholder:text-muted backdrop-blur-sm
+           focus:outline-none focus:border-accent/50 focus:bg-white/10 focus:ring-1 focus:ring-accent/30
+           transition-all duration-300;
   }
 
   .section-title {
     @apply font-heading text-3xl md:text-4xl font-bold tracking-tight;
   }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+  }
 }
 
 @layer utilities {
   .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
+    animation: fadeIn 0.8s ease-out forwards;
   }
 
   .animate-slide-up {
-    animation: slideUp 0.6s ease-out forwards;
+    animation: slideUp 0.8s ease-out forwards;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent via-pink-400 to-gold;
   }
 }
 
@@ -55,6 +66,6 @@
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }

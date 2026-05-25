@@ -16,11 +16,13 @@ export default function TableMap({
   const tables = Array.from({ length: totalTables }, (_, i) => i + 1)
 
   return (
-    <section className="px-6 py-12 max-w-3xl mx-auto" id="tables">
-      <h2 className="section-title text-center mb-2">Χάρτης Τραπεζιών</h2>
-      <p className="text-center text-sm text-gray-400 mb-8">
-        Επίλεξε το τραπέζι σου
-      </p>
+    <section className="px-6 py-16 max-w-3xl mx-auto" id="tables">
+      <div className="text-center mb-10">
+        <h2 className="section-title mb-3">
+          Διάλεξε <span className="text-gradient">Τραπέζι</span>
+        </h2>
+        <p className="text-sm text-muted">Πάτα πάνω σε ένα διαθέσιμο τραπέζι</p>
+      </div>
       <div className="grid grid-cols-5 gap-3">
         {tables.map((tableNo) => {
           const isBooked = bookedTables.includes(tableNo)
@@ -33,26 +35,28 @@ export default function TableMap({
               onClick={() => onSelectTable(tableNo)}
               className={`
                 aspect-square flex flex-col items-center justify-center
-                border text-sm font-medium transition-all duration-200
+                rounded-xl text-sm font-medium transition-all duration-300
                 ${
                   isBooked
-                    ? "bg-gray-100 border-gray-200 text-gray-300 cursor-not-allowed"
+                    ? "bg-white/5 border border-white/5 text-white/20 cursor-not-allowed"
                     : isSelected
-                    ? "bg-primary border-primary text-white scale-105 shadow-lg"
-                    : "bg-white border-gray-200 text-primary hover:border-primary hover:shadow-sm"
+                    ? "bg-gradient-to-br from-accent to-pink-600 border border-accent/50 text-white scale-110 shadow-glow"
+                    : "glass-card hover:bg-white/10 hover:border-accent/30 hover:scale-105 cursor-pointer"
                 }
               `}
             >
-              <span className="text-xs text-gray-400 mb-0.5">
-                {isBooked ? "" : "#"}
-              </span>
-              <span className={`text-lg font-semibold ${isBooked ? "text-gray-300" : ""}`}>
+              <span className={`text-lg font-bold ${isBooked ? "text-white/15" : isSelected ? "text-white" : "text-white/80"}`}>
                 {tableNo}
               </span>
               {isBooked && (
-                <span className="text-[10px] text-gray-300 mt-0.5">
-                  Κρατημένο
-                </span>
+                <svg className="w-3.5 h-3.5 text-white/15 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              )}
+              {isSelected && (
+                <svg className="w-3.5 h-3.5 text-white mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
               )}
             </button>
           )

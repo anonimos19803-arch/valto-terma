@@ -22,11 +22,11 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
           {[...Array(5)].map((_, i) => (
             <div
               key={i}
-              className={`bg-surface ${
+              className={`glass-card flex items-center justify-center ${
                 i === 0 ? "col-span-2 row-span-2" : ""
-              } flex items-center justify-center`}
+              }`}
             >
-              <svg className="w-8 h-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-8 h-8 text-white/10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
@@ -45,7 +45,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
           {displayPhotos.map((photo, i) => (
             <div
               key={photo.id}
-              className={`relative overflow-hidden cursor-pointer group ${
+              className={`relative overflow-hidden rounded-2xl cursor-pointer group ${
                 i === 0 ? "col-span-2 row-span-2" : ""
               }`}
               onClick={() => setLightbox(`/uploads/${photo.filename}`)}
@@ -54,10 +54,10 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
                 src={`/uploads/${photo.filename}`}
                 alt={`Event photo ${i + 1}`}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
                 sizes={i === 0 ? "50vw" : "25vw"}
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
           ))}
         </div>
@@ -65,7 +65,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
 
       {lightbox && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-6 cursor-pointer"
+          className="fixed inset-0 z-50 bg-dark/95 backdrop-blur-md flex items-center justify-center p-6 cursor-pointer"
           onClick={() => setLightbox(null)}
         >
           <Image
@@ -73,7 +73,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
             alt="Photo"
             width={1200}
             height={800}
-            className="max-h-[90vh] w-auto object-contain"
+            className="max-h-[90vh] w-auto object-contain rounded-lg"
           />
         </div>
       )}
