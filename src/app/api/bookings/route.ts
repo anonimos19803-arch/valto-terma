@@ -14,10 +14,11 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const phoneRegex = /^69\d{8}$/
-    if (!phoneRegex.test(phone.replace(/\s/g, ""))) {
+    const cleaned = phone.replace(/[\s\-()]/g, "")
+    const phoneRegex = /^(\+?357)?9[0-9]{7}$/
+    if (!phoneRegex.test(cleaned)) {
       return NextResponse.json(
-        { error: "Μη έγκυρος αριθμός τηλεφώνου" },
+        { error: "Μη έγκυρος αριθμός τηλεφώνου (π.χ. 9XXXXXXX ή +3579XXXXXXX)" },
         { status: 400 }
       )
     }
@@ -51,7 +52,7 @@ export async function POST(req: NextRequest) {
     const booking = await prisma.booking.create({
       data: {
         name,
-        phone: phone.replace(/\s/g, ""),
+        phone: cleaned,
         email: email || null,
         tableNo: Number(tableNo),
         guests: Number(guests),

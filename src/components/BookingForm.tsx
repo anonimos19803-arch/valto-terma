@@ -99,7 +99,7 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
 
           <div>
             <label className="block text-xs font-medium text-white/40 mb-1.5 uppercase tracking-wider">Τηλέφωνο *</label>
-            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required pattern="69[0-9]{8}" placeholder="69xxxxxxxx" className="input-field" />
+            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required placeholder="+357 9XXXXXXX" className="input-field" />
           </div>
 
           <div>
