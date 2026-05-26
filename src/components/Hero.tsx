@@ -12,11 +12,22 @@ interface HeroProps {
 
 export default function Hero({ title, description, date, time, location }: HeroProps) {
   return (
-    <section className="relative bg-brand-pink-bg">
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-pink-light to-white" />
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+      {/* Background image */}
+      <Image
+        src="/hero-bg.jpg"
+        alt=""
+        fill
+        className="object-cover"
+        priority
+        quality={85}
+      />
 
-      <div className="relative max-w-3xl mx-auto px-6 pt-16 pb-20 text-center">
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-3xl mx-auto px-6 py-20 text-center">
         {/* Logo */}
         <div className="animate-fade-in mb-8">
           <Image
@@ -24,59 +35,64 @@ export default function Hero({ title, description, date, time, location }: HeroP
             alt="ΒάΛτο Τέρμα"
             width={420}
             height={420}
-            className="mx-auto w-64 md:w-80 h-auto"
+            className="mx-auto w-56 md:w-72 h-auto drop-shadow-2xl"
             priority
           />
         </div>
 
         {/* Tagline */}
         <div className="animate-slide-up mb-10 space-y-3">
-          <p className="text-sm font-semibold tracking-widest uppercase text-brand-red">
+          <p className="text-sm font-semibold tracking-widest uppercase text-brand-pink">
             Greek vibes only 🇬🇷
           </p>
-          <p className="text-base md:text-lg text-gray-500">
+          <p className="text-base md:text-lg text-white/80">
             Βάλ' το Τέρμα — music that brings people together
           </p>
         </div>
 
         {/* Event details */}
-        <div className="animate-slide-up flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-10 text-sm text-gray-600">
-          {date && (
-            <div className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-brand-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-              </svg>
-              <span>{date}</span>
-            </div>
-          )}
-          <span className="text-gray-300 hidden sm:inline">|</span>
-          {time && (
-            <div className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>{time}</span>
-            </div>
-          )}
-          <span className="text-gray-300 hidden sm:inline">|</span>
-          {location && (
-            <div className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-              </svg>
-              <span>{location}</span>
-            </div>
-          )}
-          <span className="text-gray-300 hidden sm:inline">|</span>
-          <span className="font-semibold text-brand-red">23+</span>
+        <div className="animate-slide-up flex flex-wrap items-center justify-center gap-x-5 gap-y-3 mb-10">
+          <div className="inline-flex items-center gap-4 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
+            {date && (
+              <div className="flex items-center gap-1.5 text-sm text-white">
+                <svg className="w-4 h-4 text-brand-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                </svg>
+                <span>{date}</span>
+              </div>
+            )}
+            <span className="text-white/30 hidden sm:inline">|</span>
+            {time && (
+              <div className="flex items-center gap-1.5 text-sm text-white">
+                <svg className="w-4 h-4 text-brand-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{time}</span>
+              </div>
+            )}
+            <span className="text-white/30 hidden sm:inline">|</span>
+            {location && (
+              <div className="flex items-center gap-1.5 text-sm text-white">
+                <svg className="w-4 h-4 text-brand-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+                <span>{location}</span>
+              </div>
+            )}
+            <span className="text-white/30 hidden sm:inline">|</span>
+            <span className="font-semibold text-brand-red text-sm">23+</span>
+          </div>
         </div>
 
         {/* CTA */}
-        <a href="#tables" className="btn-primary">
+        <a href="#tables" className="inline-flex items-center justify-center bg-brand-red text-white px-10 py-4 text-sm font-semibold tracking-wide uppercase rounded-full transition-all duration-200 hover:bg-red-700 hover:shadow-lg hover:shadow-brand-red/30 active:scale-[0.98]">
           Κράτηση Τραπεζιού
         </a>
       </div>
+
+      {/* Bottom fade to white */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
     </section>
   )
 }
