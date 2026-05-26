@@ -16,8 +16,13 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "ΒάΛτο Τέρμα — Κράτηση",
-  description: "Κάνε κράτηση για το ΒάΛτο Τέρμα event — Ελληνική pop μουσική 2000s στη Λευκωσία",
+  title: "Βάλ' το Τέρμα — Κράτηση Τραπεζιού",
+  description: "Κάνε κράτηση τραπεζιού για το Βάλ' το Τέρμα — Ελληνική pop μουσική 2000s στη Λευκωσία. Περιορισμένα τραπέζια, κλείσε τώρα!",
+  openGraph: {
+    title: "Βάλ' το Τέρμα — Κράτηση Τραπεζιού",
+    description: "Ελληνική pop μουσική 2000s στη Λευκωσία. Κλείσε τραπέζι τώρα!",
+    type: "website",
+  },
 }
 
 export default function RootLayout({
@@ -27,6 +32,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="el" className={`${playfair.variable} ${inter.variable}`}>
+      <head>
+        <meta name="theme-color" content="#1E3A6E" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      </head>
       <body className="overflow-x-hidden">{children}</body>
     </html>
   )

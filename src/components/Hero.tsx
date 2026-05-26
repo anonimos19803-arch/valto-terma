@@ -12,38 +12,38 @@ interface HeroProps {
 
 export default function Hero({ title, description, date, time, location }: HeroProps) {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden">
       {/* Pink radial glow behind logo — blends the logo's pink background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-pink/25 rounded-full blur-[150px] pointer-events-none" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-3xl mx-auto px-6 py-20 text-center">
+      <div className="relative z-10 max-w-3xl mx-auto px-6 py-20 text-center flex-1 flex flex-col items-center justify-center">
         {/* Logo — blended with background */}
         <div className="animate-fade-in mb-8">
           <Image
             src="/logo.png"
-            alt="ΒάΛτο Τέρμα"
+            alt="Βάλ' το Τέρμα"
             width={420}
             height={420}
-            className="mx-auto w-56 md:w-72 h-auto rounded-3xl"
+            className="mx-auto w-52 md:w-72 h-auto rounded-3xl"
             style={{ mixBlendMode: "screen" }}
             priority
           />
         </div>
 
         {/* Tagline */}
-        <div className="animate-slide-up mb-10 space-y-3">
+        <div className="animate-slide-up mb-8 space-y-3">
           <p className="text-sm font-semibold tracking-widest uppercase text-brand-pink">
             Greek vibes only 🇬🇷
           </p>
-          <p className="text-base md:text-lg text-white/70">
+          <p className="text-base md:text-lg text-white/70 max-w-md mx-auto leading-relaxed">
             Βάλ' το Τέρμα — music that brings people together
           </p>
         </div>
 
         {/* Event details pill */}
         <div className="animate-slide-up mb-10">
-          <div className="inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/15">
+          <div className="inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 bg-white/10 backdrop-blur-md rounded-2xl sm:rounded-full px-5 py-3 border border-white/15">
             {date && (
               <div className="flex items-center gap-1.5 text-sm text-white/90">
                 <svg className="w-4 h-4 text-brand-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -77,8 +77,18 @@ export default function Hero({ title, description, date, time, location }: HeroP
         </div>
 
         {/* CTA */}
-        <a href="#tables" className="btn-primary">
-          Κράτηση Τραπεζιού
+        <a href="#tables" className="btn-primary text-base px-10 py-4">
+          Κλείσε Τραπέζι
+        </a>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="relative z-10 pb-8">
+        <a href="#tables" className="flex flex-col items-center gap-2 text-white/30 hover:text-white/50 transition-colors">
+          <span className="text-[10px] tracking-widest uppercase">Scroll</span>
+          <svg className="w-5 h-5 animate-bounce-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+          </svg>
         </a>
       </div>
     </section>
