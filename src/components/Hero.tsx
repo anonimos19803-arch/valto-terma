@@ -18,7 +18,7 @@ export default function Hero({ title, description, date, time, location }: HeroP
 
       <div className="relative max-w-3xl mx-auto px-6 pt-16 pb-20 text-center">
         {/* Logo */}
-        <div className="animate-fade-in mb-10">
+        <div className="animate-fade-in mb-8">
           <Image
             src="/logo.png"
             alt="ΒάΛτο Τέρμα"
@@ -29,10 +29,15 @@ export default function Hero({ title, description, date, time, location }: HeroP
           />
         </div>
 
-        {/* Description */}
-        <p className="animate-slide-up text-base md:text-lg text-gray-500 leading-relaxed max-w-lg mx-auto mb-10">
-          {description}
-        </p>
+        {/* Tagline */}
+        <div className="animate-slide-up mb-10 space-y-3">
+          <p className="text-sm font-semibold tracking-widest uppercase text-brand-red">
+            Greek vibes only 🇬🇷
+          </p>
+          <p className="text-base md:text-lg text-gray-500">
+            Βάλ' το Τέρμα — music that brings people together
+          </p>
+        </div>
 
         {/* Event details */}
         <div className="animate-slide-up flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-10 text-sm text-gray-600">

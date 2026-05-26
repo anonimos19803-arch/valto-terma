@@ -88,8 +88,10 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="py-10 text-center border-t border-gray-100">
-        <p className="font-heading text-lg font-bold text-brand-blue">ΒάΛτο Τέρμα</p>
-        <p className="text-[11px] text-gray-300 mt-1.5 tracking-wide">
+        <p className="text-sm text-gray-500 font-medium">
+          Βάλ' το Τέρμα <span className="text-gray-300 mx-1">|</span> <span className="text-brand-red">powered by Greek vibes</span> 🇬🇷
+        </p>
+        <p className="text-[11px] text-gray-300 mt-2 tracking-wide">
           © {new Date().getFullYear()} — All rights reserved
         </p>
       </footer>
