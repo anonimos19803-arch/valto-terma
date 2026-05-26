@@ -10,12 +10,13 @@
   }
 
   body {
-    @apply font-body text-gray-800 bg-white;
+    @apply font-body text-white;
     font-feature-settings: "cv11", "ss01";
+    background: #0a1628;
   }
 
   ::selection {
-    @apply bg-brand-red/10 text-brand-red;
+    @apply bg-brand-red/30 text-white;
   }
 }
 
@@ -24,31 +25,36 @@
     @apply inline-flex items-center justify-center
            bg-brand-red text-white px-8 py-3.5
            text-sm font-semibold tracking-wide uppercase
-           rounded-lg
+           rounded-full
            transition-all duration-200
-           hover:bg-red-700 hover:shadow-lg hover:shadow-brand-red/20
+           hover:bg-red-600 hover:shadow-lg hover:shadow-brand-red/30
            active:scale-[0.98]
            disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none;
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center
-           border-2 border-brand-blue text-brand-blue px-6 py-3
+           border-2 border-white/30 text-white px-6 py-3
            text-sm font-semibold tracking-wide
-           rounded-lg
+           rounded-full
            transition-all duration-200
-           hover:bg-brand-blue hover:text-white;
+           hover:bg-white/10 hover:border-white/50;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 rounded-lg
-           border border-gray-200 bg-white text-gray-800
-           text-[15px] placeholder:text-gray-400
+    @apply w-full px-4 py-3 rounded-xl
+           border border-white/10 bg-white/5 text-white
+           text-[15px] placeholder:text-white/30
            transition-all duration-200
-           focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/10;
+           focus:outline-none focus:border-brand-pink/50 focus:ring-2 focus:ring-brand-pink/10
+           backdrop-blur-sm;
+  }
+
+  .glass {
+    @apply bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10;
   }
 
   .card {
-    @apply bg-white rounded-2xl border border-gray-100 shadow-sm;
+    @apply bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10 shadow-lg shadow-black/10;
   }
 }

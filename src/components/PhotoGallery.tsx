@@ -23,10 +23,10 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
     <>
       <section className="max-w-3xl mx-auto px-6 py-12">
         <div className="text-center mb-8">
-          <h2 className="font-heading text-2xl md:text-3xl font-bold text-brand-blue mb-2">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold text-white mb-2">
             Στιγμιότυπα
           </h2>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-white/40">
             Από τα events μας
           </p>
         </div>
@@ -35,7 +35,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
           {displayPhotos.map((photo, i) => (
             <div
               key={photo.id}
-              className={`relative overflow-hidden rounded-xl cursor-pointer group border border-gray-100 shadow-sm ${
+              className={`relative overflow-hidden rounded-xl cursor-pointer group border border-white/10 ${
                 i === 0 ? "col-span-2 row-span-2" : ""
               }`}
               onClick={() => setLightbox(`/uploads/${photo.filename}`)}
@@ -47,10 +47,10 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes={i === 0 ? "50vw" : "25vw"}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
               <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="w-8 h-8 flex items-center justify-center rounded-full bg-white/90 shadow-sm">
-                  <svg className="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <span className="w-8 h-8 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
                   </svg>
                 </span>
@@ -63,7 +63,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
       {/* Lightbox */}
       {lightbox && (
         <div
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6 cursor-pointer"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-6 cursor-pointer"
           onClick={() => setLightbox(null)}
         >
           <button

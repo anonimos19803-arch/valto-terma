@@ -22,13 +22,13 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
     return (
       <section className="max-w-lg mx-auto px-6 py-16 text-center" id="booking">
         <div className="card p-10">
-          <div className="w-14 h-14 mx-auto mb-5 rounded-full bg-red-50 flex items-center justify-center">
+          <div className="w-14 h-14 mx-auto mb-5 rounded-full bg-red-500/20 flex items-center justify-center">
             <svg className="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
             </svg>
           </div>
-          <h3 className="font-heading text-xl font-bold text-gray-800 mb-2">Sold Out</h3>
-          <p className="text-sm text-gray-400">Όλα τα τραπέζια έχουν κρατηθεί.</p>
+          <h3 className="font-heading text-xl font-bold text-white mb-2">Sold Out</h3>
+          <p className="text-sm text-white/40">Όλα τα τραπέζια έχουν κρατηθεί.</p>
         </div>
       </section>
     )
@@ -38,14 +38,14 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
     return (
       <section className="max-w-lg mx-auto px-6 py-16 text-center" id="booking">
         <div className="card p-10 animate-fade-in">
-          <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-emerald-50 flex items-center justify-center">
-            <svg className="w-8 h-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
+            <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
           </div>
-          <h3 className="font-heading text-2xl font-bold text-gray-800 mb-2">Η κράτησή σου επιβεβαιώθηκε</h3>
-          <p className="text-gray-400 mb-1">Θα σε δούμε εκεί!</p>
-          {email && <p className="text-xs text-gray-400">Email επιβεβαίωσης στο {email}</p>}
+          <h3 className="font-heading text-2xl font-bold text-white mb-2">Η κράτησή σου επιβεβαιώθηκε!</h3>
+          <p className="text-white/50 mb-1">Θα σε δούμε εκεί! 🎉</p>
+          {email && <p className="text-xs text-white/30 mt-3">Email επιβεβαίωσης στο {email}</p>}
         </div>
       </section>
     )
@@ -73,16 +73,19 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
   return (
     <section className="max-w-lg mx-auto px-6 py-12" id="booking">
       <div className="text-center mb-6">
-        <h2 className="font-heading text-2xl md:text-3xl font-bold text-brand-blue mb-2">
+        <h2 className="font-heading text-2xl md:text-3xl font-bold text-white mb-2">
           Στοιχεία Κράτησης
         </h2>
         {selectedTable ? (
-          <p className="text-sm text-gray-400">
-            Τραπέζι <span className="font-semibold text-brand-red">#{selectedTable}</span>
+          <p className="text-sm text-white/50">
+            Τραπέζι <span className="font-bold text-brand-pink">#{selectedTable}</span>
           </p>
         ) : (
-          <p className="text-sm text-amber-500">
-            ↑ Επίλεξε τραπέζι πρώτα
+          <p className="text-sm text-amber-400/80 flex items-center justify-center gap-1">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" />
+            </svg>
+            Επίλεξε τραπέζι πρώτα
           </p>
         )}
       </div>
@@ -90,37 +93,37 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
       <div className="card p-6 md:p-8">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Ονοματεπώνυμο *</label>
+            <label className="block text-xs font-medium text-white/40 mb-1.5 uppercase tracking-wider">Ονοματεπώνυμο *</label>
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} required placeholder="π.χ. Μαρία Ιωάννου" className="input-field" />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Τηλέφωνο *</label>
+            <label className="block text-xs font-medium text-white/40 mb-1.5 uppercase tracking-wider">Τηλέφωνο *</label>
             <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required pattern="69[0-9]{8}" placeholder="69xxxxxxxx" className="input-field" />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Email <span className="text-gray-300 normal-case">(προαιρετικό)</span></label>
+            <label className="block text-xs font-medium text-white/40 mb-1.5 uppercase tracking-wider">Email <span className="text-white/20 normal-case">(προαιρετικό)</span></label>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email@example.com" className="input-field" />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Αριθμός ατόμων *</label>
+            <label className="block text-xs font-medium text-white/40 mb-1.5 uppercase tracking-wider">Αριθμός ατόμων *</label>
             <select value={guests} onChange={(e) => setGuests(e.target.value)} required className="input-field">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                <option key={n} value={n}>{n} {n === 1 ? "άτομο" : "άτομα"}</option>
+                <option key={n} value={n} className="bg-gray-900 text-white">{n} {n === 1 ? "άτομο" : "άτομα"}</option>
               ))}
-              <option value="9">8+ άτομα</option>
+              <option value="9" className="bg-gray-900 text-white">8+ άτομα</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Σημειώσεις <span className="text-gray-300 normal-case">(προαιρετικό)</span></label>
+            <label className="block text-xs font-medium text-white/40 mb-1.5 uppercase tracking-wider">Σημειώσεις <span className="text-white/20 normal-case">(προαιρετικό)</span></label>
             <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} placeholder="π.χ. γενέθλια, αλλεργίες..." className="input-field resize-none" />
           </div>
 
           {error && (
-            <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 border border-red-100 px-4 py-3 rounded-lg">
+            <div className="flex items-start gap-2 text-sm text-red-300 bg-red-500/10 border border-red-500/20 px-4 py-3 rounded-xl">
               <svg className="w-4 h-4 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
               </svg>
@@ -142,7 +145,7 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
             </button>
           </div>
 
-          <p className="text-[11px] text-gray-300 text-center pt-1">
+          <p className="text-[11px] text-white/20 text-center pt-1">
             Με την κράτηση αποδέχεσαι ότι τα στοιχεία σου χρησιμοποιούνται μόνο για τη διαχείριση του event.
           </p>
         </form>
