@@ -10,38 +10,38 @@ export default function AvailabilityBar({ total, booked }: AvailabilityBarProps)
   const available = total - booked
 
   let statusText: string
-  let statusColor: string
-  let barGradient: string
+  let dotColor: string
+  let barColor: string
 
   if (percentage >= 100) {
     statusText = "Sold Out"
-    statusColor = "text-red-400"
-    barGradient = "from-red-500 to-red-400"
+    dotColor = "bg-cherry"
+    barColor = "bg-cherry"
   } else if (percentage >= 70) {
     statusText = "Σχεδόν Full"
-    statusColor = "text-sunset"
-    barGradient = "from-sunset to-accent"
+    dotColor = "bg-orange-400"
+    barColor = "bg-gradient-to-r from-orange-400 to-cherry"
   } else {
     statusText = "Διαθέσιμο"
-    statusColor = "text-ocean"
-    barGradient = "from-ocean to-sky"
+    dotColor = "bg-emerald-500"
+    barColor = "bg-gradient-to-r from-emerald-400 to-royal"
   }
 
   return (
-    <section className="px-6 py-12 max-w-2xl mx-auto">
+    <section className="px-6 py-10 max-w-2xl mx-auto">
       <div className="glass-card p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2.5">
-            <span className={`w-2.5 h-2.5 rounded-full ${percentage >= 100 ? 'bg-red-400' : percentage >= 70 ? 'bg-sunset' : 'bg-ocean'} animate-pulse`} />
-            <span className={`text-sm font-semibold ${statusColor}`}>{statusText}</span>
+            <span className={`w-2.5 h-2.5 rounded-full ${dotColor} animate-pulse`} />
+            <span className="text-sm font-semibold text-royal">{statusText}</span>
           </div>
-          <span className="text-sm text-muted">
-            <span className="text-white font-semibold">{available}</span> / {total} τραπέζια
+          <span className="text-sm text-royal/50">
+            <span className="text-royal font-bold">{available}</span> / {total} τραπέζια
           </span>
         </div>
-        <div className="w-full h-2.5 bg-white/5 rounded-full overflow-hidden">
+        <div className="w-full h-3 bg-pink-100 rounded-full overflow-hidden">
           <div
-            className={`h-full bg-gradient-to-r ${barGradient} rounded-full transition-all duration-1000 ease-out shadow-lg`}
+            className={`h-full ${barColor} rounded-full transition-all duration-1000 ease-out`}
             style={{ width: `${percentage}%` }}
           />
         </div>

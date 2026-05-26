@@ -8,41 +8,41 @@
   }
 
   body {
-    @apply font-body text-white bg-dark antialiased;
+    @apply font-body text-royal bg-pink-50 antialiased;
   }
 
   ::selection {
-    @apply bg-accent text-white;
+    @apply bg-cherry text-white;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-gradient-to-r from-accent to-coral text-white px-8 py-3.5 font-semibold tracking-wide
+    @apply bg-cherry text-white px-8 py-3.5 font-semibold tracking-wide
            rounded-full shadow-glow
-           transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,107,53,0.5)]
+           transition-all duration-300 hover:scale-105 hover:bg-cherry-dark
+           hover:shadow-[0_0_40px_rgba(204,41,54,0.4)]
            disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100;
   }
 
   .btn-outline {
-    @apply border border-white/20 text-white px-6 py-3 font-medium tracking-wide rounded-full
-           backdrop-blur-sm bg-white/5
-           transition-all duration-300 hover:bg-white/10 hover:border-white/40;
+    @apply border-2 border-royal text-royal px-6 py-3 font-medium tracking-wide rounded-full
+           transition-all duration-300 hover:bg-royal hover:text-white;
   }
 
   .input-field {
-    @apply w-full px-5 py-3.5 rounded-xl border border-white/10 bg-white/5 text-white
-           placeholder:text-muted backdrop-blur-sm
-           focus:outline-none focus:border-accent/50 focus:bg-white/10 focus:ring-1 focus:ring-accent/30
+    @apply w-full px-5 py-3.5 rounded-xl border-2 border-pink-200 bg-white text-royal
+           placeholder:text-pink-300
+           focus:outline-none focus:border-royal focus:ring-2 focus:ring-royal/20
            transition-all duration-300;
   }
 
   .section-title {
-    @apply font-heading text-3xl md:text-4xl font-bold tracking-tight;
+    @apply font-heading text-3xl md:text-4xl font-bold tracking-tight text-royal;
   }
 
   .glass-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+    @apply bg-white/80 backdrop-blur-md border border-pink-200 rounded-2xl shadow-card;
   }
 }
 
@@ -56,7 +56,7 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent via-sunset to-ocean;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cherry via-cherry-light to-royal;
   }
 }
 

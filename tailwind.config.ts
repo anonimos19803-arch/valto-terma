@@ -9,28 +9,34 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#1a1a2e",
-        accent: "#ff6b35",
-        coral: "#ff8c61",
-        sunset: "#ffd166",
-        ocean: "#06d6a0",
-        sky: "#118ab2",
-        dark: "#073b4c",
-        "dark-light": "#0a4f66",
-        surface: "#0d5a75",
-        muted: "#8ecae6",
+        pink: {
+          50: "#FFF0F3",
+          100: "#FFE0E8",
+          200: "#FFC2D1",
+          300: "#F9A8B8",
+          400: "#F48DA0",
+          500: "#E8738A",
+          bg: "#F8B4C8",
+        },
+        royal: {
+          DEFAULT: "#2547A4",
+          dark: "#1B3580",
+          light: "#3A5FC0",
+        },
+        cherry: {
+          DEFAULT: "#CC2936",
+          light: "#E63946",
+          dark: "#A81D28",
+        },
       },
       fontFamily: {
         heading: ["Playfair Display", "serif"],
         body: ["Inter", "sans-serif"],
       },
-      backgroundImage: {
-        "hero-gradient": "linear-gradient(135deg, #073b4c 0%, #118ab2 40%, #06d6a0 100%)",
-      },
       boxShadow: {
-        "glow": "0 0 30px rgba(255, 107, 53, 0.4)",
-        "glow-ocean": "0 0 30px rgba(6, 214, 160, 0.3)",
-        "card": "0 8px 32px rgba(0, 0, 0, 0.3)",
+        "glow": "0 0 30px rgba(204, 41, 54, 0.3)",
+        "soft": "0 8px 40px rgba(37, 71, 164, 0.15)",
+        "card": "0 4px 20px rgba(0, 0, 0, 0.08)",
       },
       animation: {
         "float": "float 6s ease-in-out infinite",

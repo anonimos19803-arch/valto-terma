@@ -19,9 +19,9 @@ export default function TableMap({
     <section className="px-6 py-16 max-w-3xl mx-auto" id="tables">
       <div className="text-center mb-10">
         <h2 className="section-title mb-3">
-          Διάλεξε <span className="text-gradient">Τραπέζι</span>
+          Διάλεξε Τραπέζι
         </h2>
-        <p className="text-sm text-muted">Πάτα πάνω σε ένα διαθέσιμο τραπέζι</p>
+        <p className="text-sm text-royal/50">Πάτα πάνω σε ένα διαθέσιμο τραπέζι</p>
       </div>
       <div className="grid grid-cols-5 gap-3">
         {tables.map((tableNo) => {
@@ -38,18 +38,18 @@ export default function TableMap({
                 rounded-xl text-sm font-medium transition-all duration-300
                 ${
                   isBooked
-                    ? "bg-white/5 border border-white/5 text-white/20 cursor-not-allowed"
+                    ? "bg-pink-100 border-2 border-pink-100 text-pink-300 cursor-not-allowed"
                     : isSelected
-                    ? "bg-gradient-to-br from-accent to-sunset border border-accent/50 text-white scale-110 shadow-glow"
-                    : "glass-card hover:bg-white/10 hover:border-ocean/40 hover:scale-105 cursor-pointer"
+                    ? "bg-cherry text-white border-2 border-cherry scale-110 shadow-glow"
+                    : "bg-white border-2 border-pink-200 text-royal hover:border-royal hover:shadow-soft hover:scale-105 cursor-pointer"
                 }
               `}
             >
-              <span className={`text-lg font-bold ${isBooked ? "text-white/15" : isSelected ? "text-white" : "text-white/80"}`}>
+              <span className={`text-lg font-bold ${isBooked ? "text-pink-300" : ""}`}>
                 {tableNo}
               </span>
               {isBooked && (
-                <svg className="w-3.5 h-3.5 text-white/15 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-3.5 h-3.5 text-pink-300 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               )}
