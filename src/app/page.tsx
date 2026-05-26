@@ -43,27 +43,55 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-pink-bg">
-        <div className="w-8 h-8 border-3 border-cherry border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-brand-red border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs text-gray-400 tracking-wide">Φόρτωση...</p>
+        </div>
       </div>
     )
   }
 
   if (!event || !tableData) {
-    return <div className="min-h-screen flex items-center justify-center bg-pink-bg text-royal/50">Δεν βρέθηκε event</div>
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <p className="text-gray-400 mb-1">Δεν βρέθηκε event</p>
+          <p className="text-xs text-gray-300">Παρακαλώ δοκιμάστε ξανά αργότερα</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <main className="min-h-screen bg-pink-50">
-      <Hero title={event.title} description={event.description} date={event.date} time={event.time} location={event.location} />
+    <main className="min-h-screen bg-white">
+      <Hero
+        title={event.title}
+        description={event.description}
+        date={event.date}
+        time={event.time}
+        location={event.location}
+      />
       <PhotoGallery photos={photos} />
       <AvailabilityBar total={tableData.totalTables} booked={tableData.bookedTables.length} />
-      <TableMap totalTables={tableData.totalTables} bookedTables={tableData.bookedTables} selectedTable={selectedTable} onSelectTable={setSelectedTable} />
-      <BookingForm selectedTable={selectedTable} isFull={tableData.available <= 0} onSuccess={() => { setSelectedTable(null); fetchData() }} />
+      <TableMap
+        totalTables={tableData.totalTables}
+        bookedTables={tableData.bookedTables}
+        selectedTable={selectedTable}
+        onSelectTable={setSelectedTable}
+      />
+      <BookingForm
+        selectedTable={selectedTable}
+        isFull={tableData.available <= 0}
+        onSuccess={() => { setSelectedTable(null); fetchData() }}
+      />
 
-      <footer className="py-10 text-center border-t border-pink-200">
-        <p className="font-heading text-lg font-bold text-royal">ΒάΛτο Τέρμα</p>
-        <p className="text-xs text-royal/30 mt-1">Made with love</p>
+      {/* Footer */}
+      <footer className="py-10 text-center border-t border-gray-100">
+        <p className="font-heading text-lg font-bold text-brand-blue">ΒάΛτο Τέρμα</p>
+        <p className="text-[11px] text-gray-300 mt-1.5 tracking-wide">
+          © {new Date().getFullYear()} — All rights reserved
+        </p>
       </footer>
     </main>
   )

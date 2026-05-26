@@ -6,6 +6,7 @@ const playfair = Playfair_Display({
   subsets: ["latin", "latin-ext"],
   variable: "--font-heading",
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 })
 
 const inter = Inter({
@@ -15,8 +16,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "ΒάΛτο Τέρμα",
-  description: "Event reservation — Ελληνική pop μουσική 2000s",
+  title: "ΒάΛτο Τέρμα — Κράτηση",
+  description: "Κάνε κράτηση για το ΒάΛτο Τέρμα event — Ελληνική pop μουσική 2000s στη Λευκωσία",
 }
 
 export default function RootLayout({
@@ -26,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="el" className={`${playfair.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body className="overflow-x-hidden">{children}</body>
     </html>
   )
 }

@@ -9,43 +9,48 @@ export default function AvailabilityBar({ total, booked }: AvailabilityBarProps)
   const percentage = total > 0 ? Math.round((booked / total) * 100) : 0
   const available = total - booked
 
-  let statusText: string
-  let dotColor: string
-  let barColor: string
+  let label: string
+  let color: string
+  let bg: string
+  let dot: string
 
   if (percentage >= 100) {
-    statusText = "Sold Out"
-    dotColor = "bg-cherry"
-    barColor = "bg-cherry"
+    label = "Εξαντλήθηκαν"
+    color = "text-red-600"
+    bg = "bg-red-500"
+    dot = "bg-red-500"
   } else if (percentage >= 70) {
-    statusText = "Σχεδόν Full"
-    dotColor = "bg-orange-400"
-    barColor = "bg-gradient-to-r from-orange-400 to-cherry"
+    label = "Τελευταία τραπέζια"
+    color = "text-amber-600"
+    bg = "bg-amber-500"
+    dot = "bg-amber-500"
   } else {
-    statusText = "Διαθέσιμο"
-    dotColor = "bg-emerald-500"
-    barColor = "bg-gradient-to-r from-emerald-400 to-royal"
+    label = "Διαθέσιμα τραπέζια"
+    color = "text-emerald-600"
+    bg = "bg-emerald-500"
+    dot = "bg-emerald-500"
   }
 
   return (
-    <section className="px-6 py-10 max-w-2xl mx-auto">
-      <div className="glass-card p-6">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2.5">
-            <span className={`w-2.5 h-2.5 rounded-full ${dotColor} animate-pulse`} />
-            <span className="text-sm font-semibold text-royal">{statusText}</span>
+    <div className="max-w-2xl mx-auto px-6 py-8">
+      <div className="card px-6 py-5">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <span className={`w-2 h-2 rounded-full ${dot} animate-pulse`} />
+            <span className={`text-sm font-medium ${color}`}>{label}</span>
           </div>
-          <span className="text-sm text-royal/50">
-            <span className="text-royal font-bold">{available}</span> / {total} τραπέζια
-          </span>
+          <p className="text-sm text-gray-400">
+            <span className="font-semibold text-gray-700">{available}</span>
+            <span> από {total}</span>
+          </p>
         </div>
-        <div className="w-full h-3 bg-pink-100 rounded-full overflow-hidden">
+        <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
           <div
-            className={`h-full ${barColor} rounded-full transition-all duration-1000 ease-out`}
-            style={{ width: `${percentage}%` }}
+            className={`h-full ${bg} rounded-full transition-all duration-1000 ease-out`}
+            style={{ width: `${Math.min(percentage, 100)}%` }}
           />
         </div>
       </div>
-    </section>
+    </div>
   )
 }

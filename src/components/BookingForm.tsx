@@ -8,11 +8,7 @@ interface BookingFormProps {
   onSuccess: () => void
 }
 
-export default function BookingForm({
-  selectedTable,
-  isFull,
-  onSuccess,
-}: BookingFormProps) {
+export default function BookingForm({ selectedTable, isFull, onSuccess }: BookingFormProps) {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("")
@@ -24,15 +20,15 @@ export default function BookingForm({
 
   if (isFull) {
     return (
-      <section className="px-6 py-16 max-w-xl mx-auto text-center" id="booking">
-        <div className="glass-card p-12">
-          <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-cherry/10 flex items-center justify-center">
-            <svg className="w-8 h-8 text-cherry" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+      <section className="max-w-lg mx-auto px-6 py-16 text-center" id="booking">
+        <div className="card p-10">
+          <div className="w-14 h-14 mx-auto mb-5 rounded-full bg-red-50 flex items-center justify-center">
+            <svg className="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
             </svg>
           </div>
-          <h2 className="section-title mb-4">Sold Out</h2>
-          <p className="text-royal/50">Δυστυχώς όλα τα τραπέζια έχουν κρατηθεί.</p>
+          <h3 className="font-heading text-xl font-bold text-gray-800 mb-2">Sold Out</h3>
+          <p className="text-sm text-gray-400">Όλα τα τραπέζια έχουν κρατηθεί.</p>
         </div>
       </section>
     )
@@ -40,20 +36,16 @@ export default function BookingForm({
 
   if (success) {
     return (
-      <section className="px-6 py-16 max-w-xl mx-auto text-center" id="booking">
-        <div className="glass-card p-12 animate-fade-in">
-          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg">
-            <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+      <section className="max-w-lg mx-auto px-6 py-16 text-center" id="booking">
+        <div className="card p-10 animate-fade-in">
+          <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-emerald-50 flex items-center justify-center">
+            <svg className="w-8 h-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
           </div>
-          <h2 className="section-title mb-4">Τέλεια!</h2>
-          <p className="text-royal/60 text-lg">
-            Η κράτησή σου ολοκληρώθηκε. Θα σε δούμε εκεί!
-          </p>
-          {email && (
-            <p className="text-sm text-royal/40 mt-3">Θα λάβεις email επιβεβαίωσης.</p>
-          )}
+          <h3 className="font-heading text-2xl font-bold text-gray-800 mb-2">Η κράτησή σου επιβεβαιώθηκε</h3>
+          <p className="text-gray-400 mb-1">Θα σε δούμε εκεί!</p>
+          {email && <p className="text-xs text-gray-400">Email επιβεβαίωσης στο {email}</p>}
         </div>
       </section>
     )
@@ -62,20 +54,13 @@ export default function BookingForm({
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setError("")
-    if (!selectedTable) {
-      setError("Επίλεξε ένα τραπέζι από τον χάρτη παραπάνω")
-      return
-    }
+    if (!selectedTable) { setError("Επίλεξε ένα τραπέζι πρώτα"); return }
     setLoading(true)
     try {
       const res = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name, phone, email: email || undefined,
-          tableNo: selectedTable, guests: Number(guests),
-          notes: notes || undefined,
-        }),
+        body: JSON.stringify({ name, phone, email: email || undefined, tableNo: selectedTable, guests: Number(guests), notes: notes || undefined }),
       })
       const data = await res.json()
       if (!res.ok) { setError(data.error || "Κάτι πήγε στραβά"); return }
@@ -86,51 +71,80 @@ export default function BookingForm({
   }
 
   return (
-    <section className="px-6 py-16 max-w-xl mx-auto" id="booking">
-      <div className="text-center mb-10">
-        <h2 className="section-title mb-3">Κάνε Κράτηση</h2>
-        <p className="text-sm text-royal/50">
-          {selectedTable ? (
-            <>Τραπέζι <span className="text-cherry font-bold">#{selectedTable}</span> επιλεγμένο</>
-          ) : (
-            "Επίλεξε πρώτα ένα τραπέζι"
-          )}
-        </p>
+    <section className="max-w-lg mx-auto px-6 py-12" id="booking">
+      <div className="text-center mb-6">
+        <h2 className="font-heading text-2xl md:text-3xl font-bold text-brand-blue mb-2">
+          Στοιχεία Κράτησης
+        </h2>
+        {selectedTable ? (
+          <p className="text-sm text-gray-400">
+            Τραπέζι <span className="font-semibold text-brand-red">#{selectedTable}</span>
+          </p>
+        ) : (
+          <p className="text-sm text-amber-500">
+            ↑ Επίλεξε τραπέζι πρώτα
+          </p>
+        )}
       </div>
 
-      <div className="glass-card p-8">
+      <div className="card p-6 md:p-8">
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input type="text" placeholder="Όνομα *" value={name} onChange={(e) => setName(e.target.value)} required className="input-field" />
-          <input type="tel" placeholder="Τηλέφωνο (69xxxxxxxx) *" value={phone} onChange={(e) => setPhone(e.target.value)} required pattern="69[0-9]{8}" className="input-field" />
-          <input type="email" placeholder="Email (προαιρετικό)" value={email} onChange={(e) => setEmail(e.target.value)} className="input-field" />
-          <select value={guests} onChange={(e) => setGuests(e.target.value)} required className="input-field">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-              <option key={n} value={n}>{n} {n === 1 ? "άτομο" : "άτομα"}</option>
-            ))}
-            <option value="9">8+ άτομα</option>
-          </select>
-          <textarea placeholder="Σημειώσεις (π.χ. birthday, αλλεργίες)" value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} className="input-field resize-none" />
+          <div>
+            <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Ονοματεπώνυμο *</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required placeholder="π.χ. Μαρία Ιωάννου" className="input-field" />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Τηλέφωνο *</label>
+            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required pattern="69[0-9]{8}" placeholder="69xxxxxxxx" className="input-field" />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Email <span className="text-gray-300 normal-case">(προαιρετικό)</span></label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email@example.com" className="input-field" />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Αριθμός ατόμων *</label>
+            <select value={guests} onChange={(e) => setGuests(e.target.value)} required className="input-field">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                <option key={n} value={n}>{n} {n === 1 ? "άτομο" : "άτομα"}</option>
+              ))}
+              <option value="9">8+ άτομα</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wider">Σημειώσεις <span className="text-gray-300 normal-case">(προαιρετικό)</span></label>
+            <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} placeholder="π.χ. γενέθλια, αλλεργίες..." className="input-field resize-none" />
+          </div>
 
           {error && (
-            <div className="flex items-center gap-2 text-cherry text-sm bg-cherry/5 px-4 py-2.5 rounded-xl border border-cherry/20">
-              <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 border border-red-100 px-4 py-3 rounded-lg">
+              <svg className="w-4 h-4 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
               </svg>
               <span>{error}</span>
             </div>
           )}
 
-          <button type="submit" disabled={loading || !selectedTable} className="btn-primary w-full text-sm tracking-widest uppercase">
-            {loading ? (
-              <span className="flex items-center justify-center gap-2">
-                <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-                Αποστολή...
-              </span>
-            ) : "Ολοκλήρωση Κράτησης"}
-          </button>
+          <div className="pt-2">
+            <button type="submit" disabled={loading || !selectedTable} className="btn-primary w-full">
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Αποστολή...
+                </span>
+              ) : "Ολοκλήρωση Κράτησης"}
+            </button>
+          </div>
+
+          <p className="text-[11px] text-gray-300 text-center pt-1">
+            Με την κράτηση αποδέχεσαι ότι τα στοιχεία σου χρησιμοποιούνται μόνο για τη διαχείριση του event.
+          </p>
         </form>
       </div>
     </section>

@@ -12,63 +12,64 @@ interface HeroProps {
 
 export default function Hero({ title, description, date, time, location }: HeroProps) {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 text-center overflow-hidden bg-pink-bg">
-      {/* Decorative circles */}
-      <div className="absolute top-10 left-10 w-64 h-64 bg-pink-300/30 rounded-full blur-[80px]" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-pink-200/40 rounded-full blur-[100px]" />
-      <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-cherry rounded-full animate-float opacity-50" />
-      <div className="absolute bottom-1/3 left-1/5 w-2 h-2 bg-royal rounded-full animate-float opacity-40" style={{ animationDelay: "2s" }} />
+    <section className="relative bg-brand-pink-bg">
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-brand-pink-light to-white" />
 
-      <div className="relative z-10 animate-fade-in max-w-2xl">
-        {/* Logo image */}
-        <div className="mb-8">
+      <div className="relative max-w-3xl mx-auto px-6 pt-16 pb-20 text-center">
+        {/* Logo */}
+        <div className="animate-fade-in mb-10">
           <Image
             src="/logo.png"
             alt="ΒάΛτο Τέρμα"
-            width={500}
-            height={500}
-            className="mx-auto w-72 md:w-96 h-auto drop-shadow-lg"
+            width={420}
+            height={420}
+            className="mx-auto w-64 md:w-80 h-auto"
             priority
           />
         </div>
 
-        <p className="text-lg md:text-xl text-royal/70 max-w-xl mx-auto mb-10 leading-relaxed">
+        {/* Description */}
+        <p className="animate-slide-up text-base md:text-lg text-gray-500 leading-relaxed max-w-lg mx-auto mb-10">
           {description}
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
+        {/* Event details */}
+        <div className="animate-slide-up flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-10 text-sm text-gray-600">
           {date && (
-            <div className="glass-card px-4 py-2 flex items-center gap-2">
-              <svg className="w-4 h-4 text-cherry" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            <div className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-brand-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
               </svg>
-              <span className="text-sm font-medium">{date}</span>
+              <span>{date}</span>
             </div>
           )}
+          <span className="text-gray-300 hidden sm:inline">|</span>
           {time && (
-            <div className="glass-card px-4 py-2 flex items-center gap-2">
-              <svg className="w-4 h-4 text-royal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <div className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-sm font-medium">{time}</span>
+              <span>{time}</span>
             </div>
           )}
+          <span className="text-gray-300 hidden sm:inline">|</span>
           {location && (
-            <div className="glass-card px-4 py-2 flex items-center gap-2">
-              <svg className="w-4 h-4 text-cherry-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            <div className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
               </svg>
-              <span className="text-sm font-medium">{location}</span>
+              <span>{location}</span>
             </div>
           )}
-          <div className="bg-cherry text-white px-4 py-2 rounded-full text-sm font-bold">
-            23+
-          </div>
+          <span className="text-gray-300 hidden sm:inline">|</span>
+          <span className="font-semibold text-brand-red">23+</span>
         </div>
 
-        <a href="#booking" className="btn-primary text-sm tracking-widest uppercase">
-          Κάνε Κράτηση
+        {/* CTA */}
+        <a href="#tables" className="btn-primary">
+          Κράτηση Τραπεζιού
         </a>
       </div>
     </section>
