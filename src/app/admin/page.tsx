@@ -36,6 +36,13 @@ interface Photo {
   order: number
 }
 
+interface CommunityPhoto {
+  id: number
+  imageData: string
+  name: string
+  createdAt: string
+}
+
 export default function AdminPage() {
   const [authenticated, setAuthenticated] = useState(false)
   const [checkingAuth, setCheckingAuth] = useState(true)
@@ -48,7 +55,9 @@ export default function AdminPage() {
   const [event, setEvent] = useState<EventData | null>(null)
   const [photos, setPhotos] = useState<Photo[]>([])
 
-  const [activeTab, setActiveTab] = useState<"bookings" | "event" | "photos">("bookings")
+  const [communityPhotos, setCommunityPhotos] = useState<CommunityPhoto[]>([])
+
+  const [activeTab, setActiveTab] = useState<"bookings" | "event" | "photos" | "community">("bookings")
   const [saving, setSaving] = useState(false)
   const [deleteId, setDeleteId] = useState<number | null>(null)
 
@@ -81,12 +90,21 @@ export default function AdminPage() {
     }
   }, [])
 
+  const fetchCommunityPhotos = useCallback(async () => {
+    const res = await fetch("/api/community-photos")
+    if (res.ok) {
+      const data = await res.json()
+      setCommunityPhotos(data.photos || [])
+    }
+  }, [])
+
   useEffect(() => {
     if (authenticated) {
       fetchBookings()
       fetchEvent()
+      fetchCommunityPhotos()
     }
-  }, [authenticated, fetchBookings, fetchEvent])
+  }, [authenticated, fetchBookings, fetchEvent, fetchCommunityPhotos])
 
   async function handleLogin(e: FormEvent) {
     e.preventDefault()
@@ -164,6 +182,15 @@ export default function AdminPage() {
       body: JSON.stringify({ id }),
     })
     if (res.ok) fetchEvent()
+  }
+
+  async function handleDeleteCommunityPhoto(id: number) {
+    const res = await fetch("/api/community-photos", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    })
+    if (res.ok) fetchCommunityPhotos()
   }
 
   /* ── Loading state ── */
@@ -293,7 +320,7 @@ export default function AdminPage() {
 
         {/* Tabs */}
         <div className="flex gap-1 mb-6 bg-white rounded-xl border border-gray-100 p-1 w-fit shadow-sm">
-          {(["bookings", "event", "photos"] as const).map((tab) => (
+          {(["bookings", "event", "photos", "community"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -303,7 +330,7 @@ export default function AdminPage() {
                   : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
               }`}
             >
-              {tab === "bookings" ? "Κρατήσεις" : tab === "event" ? "Event" : "Φωτογραφίες"}
+              {tab === "bookings" ? "Κρατήσεις" : tab === "event" ? "Event" : tab === "photos" ? "Φωτογραφίες" : "Community"}
             </button>
           ))}
         </div>
@@ -486,6 +513,40 @@ export default function AdminPage() {
               <div className="text-center py-8">
                 <p className="text-gray-400 text-sm">Δεν υπάρχουν φωτογραφίες</p>
                 <p className="text-gray-300 text-xs mt-1">Ανέβασε φωτογραφίες για να εμφανιστούν στη σελίδα</p>
+              </div>
+            )}
+          </div>
+        )}
+        {/* ── Community Photos Tab ── */}
+        {activeTab === "community" && (
+          <div className="card p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="font-heading text-lg font-bold text-gray-800">Community Photos</h3>
+              <span className="text-xs text-gray-400">{communityPhotos.length} φωτογραφίες</span>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {communityPhotos.map((photo) => (
+                <div key={photo.id} className="relative group rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+                  <img src={photo.imageData} alt={photo.name || "Community photo"} className="w-full aspect-square object-cover" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200" />
+                  <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    <p className="text-xs text-white truncate">{photo.name || "Ανώνυμος"}</p>
+                    <p className="text-[10px] text-white/60">{new Date(photo.createdAt).toLocaleString("el-GR")}</p>
+                  </div>
+                  <button
+                    onClick={() => handleDeleteCommunityPhoto(photo.id)}
+                    className="absolute top-2 right-2 w-8 h-8 bg-white/90 text-gray-600 hover:text-red-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-sm"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                </div>
+              ))}
+            </div>
+            {communityPhotos.length === 0 && (
+              <div className="text-center py-8">
+                <p className="text-gray-400 text-sm">Δεν υπάρχουν community φωτογραφίες</p>
               </div>
             )}
           </div>

@@ -8,6 +8,7 @@ import AvailabilityBar from "@/components/AvailabilityBar"
 import TableMap from "@/components/TableMap"
 import BookingForm from "@/components/BookingForm"
 import ShareButton from "@/components/ShareButton"
+import CommunityWall from "@/components/CommunityWall"
 
 interface EventData {
   id: number
@@ -105,6 +106,8 @@ export default function HomePage() {
           isFull={tableData.available <= 0}
           onSuccess={() => { setSelectedTable(null); fetchData() }}
         />
+
+        <CommunityWall />
 
         {/* Footer */}
         <footer className="mt-8 border-t border-white/10">

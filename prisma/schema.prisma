@@ -37,3 +37,10 @@ model Photo {
   order     Int      @default(0)
   createdAt DateTime @default(now())
 }
+
+model CommunityPhoto {
+  id        Int      @id @default(autoincrement())
+  imageData String
+  name      String   @default("")
+  createdAt DateTime @default(now())
+}
