@@ -4,8 +4,6 @@ import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import Hero from "@/components/Hero"
 import PhotoGallery from "@/components/PhotoGallery"
-import AvailabilityBar from "@/components/AvailabilityBar"
-import TableMap from "@/components/TableMap"
 import BookingForm from "@/components/BookingForm"
 import ShareButton from "@/components/ShareButton"
 import CommunityWall from "@/components/CommunityWall"
@@ -21,13 +19,12 @@ interface EventData {
 }
 
 interface Photo { id: number; filename: string }
-interface TableData { totalTables: number; bookedTables: number[]; available: number }
+interface TableData { totalTables: number; bookedTables: number[]; available: number; totalBookings: number }
 
 export default function HomePage() {
   const [event, setEvent] = useState<EventData | null>(null)
   const [photos, setPhotos] = useState<Photo[]>([])
   const [tableData, setTableData] = useState<TableData | null>(null)
-  const [selectedTable, setSelectedTable] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
 
   const fetchData = useCallback(async () => {
@@ -94,17 +91,9 @@ export default function HomePage() {
           location={event.location}
         />
         <PhotoGallery photos={photos} />
-        <AvailabilityBar total={tableData.totalTables} booked={tableData.bookedTables.length} />
-        <TableMap
-          totalTables={tableData.totalTables}
-          bookedTables={tableData.bookedTables}
-          selectedTable={selectedTable}
-          onSelectTable={setSelectedTable}
-        />
         <BookingForm
-          selectedTable={selectedTable}
           isFull={tableData.available <= 0}
-          onSuccess={() => { setSelectedTable(null); fetchData() }}
+          onSuccess={fetchData}
         />
 
         <CommunityWall />

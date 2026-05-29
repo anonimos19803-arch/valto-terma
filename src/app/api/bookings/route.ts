@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const { name, phone, email, tableNo, guests, notes } = body
 
-    if (!name || !phone || !tableNo || !guests) {
+    if (!name || !phone || !guests) {
       return NextResponse.json(
         { error: "Συμπλήρωσε τα υποχρεωτικά πεδία" },
         { status: 400 }
@@ -23,16 +23,6 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const existing = await prisma.booking.findFirst({
-      where: { tableNo: Number(tableNo) },
-    })
-    if (existing) {
-      return NextResponse.json(
-        { error: "Αυτό το τραπέζι είναι ήδη κρατημένο" },
-        { status: 409 }
-      )
-    }
-
     const event = await prisma.event.findFirst()
     if (!event) {
       return NextResponse.json(
@@ -41,12 +31,21 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const totalBooked = await prisma.booking.count()
-    if (totalBooked >= event.totalTables) {
+    const bookedTables = await prisma.booking.findMany({ select: { tableNo: true } })
+    const bookedNos = new Set(bookedTables.map((b) => b.tableNo))
+
+    if (bookedNos.size >= event.totalTables) {
       return NextResponse.json(
         { error: "Δεν υπάρχουν διαθέσιμα τραπέζια" },
         { status: 409 }
       )
+    }
+
+    let assignedTable = tableNo ? Number(tableNo) : 0
+    if (!assignedTable) {
+      for (let i = 1; i <= event.totalTables; i++) {
+        if (!bookedNos.has(i)) { assignedTable = i; break }
+      }
     }
 
     const booking = await prisma.booking.create({
@@ -54,7 +53,7 @@ export async function POST(req: NextRequest) {
         name,
         phone: cleaned,
         email: email || null,
-        tableNo: Number(tableNo),
+        tableNo: assignedTable,
         guests: Number(guests),
         notes: notes || null,
       },

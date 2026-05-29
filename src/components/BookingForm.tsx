@@ -3,12 +3,11 @@
 import { useState, FormEvent } from "react"
 
 interface BookingFormProps {
-  selectedTable: number | null
   isFull: boolean
   onSuccess: () => void
 }
 
-export default function BookingForm({ selectedTable, isFull, onSuccess }: BookingFormProps) {
+export default function BookingForm({ isFull, onSuccess }: BookingFormProps) {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("")
@@ -17,6 +16,7 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
+  const [bookingResult, setBookingResult] = useState<{ tableNo: number } | null>(null)
 
   if (isFull) {
     return (
@@ -34,11 +34,10 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
     )
   }
 
-  if (success) {
+  if (success && bookingResult) {
     return (
       <section className="max-w-lg mx-auto px-6 py-16 text-center" id="booking">
         <div className="card p-10 animate-fade-in">
-          {/* Celebration */}
           <div className="text-4xl mb-4">🎉</div>
           <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
             <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -53,7 +52,7 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
             <div className="flex items-center justify-center gap-4 text-sm">
               <span className="text-white/60">Όνομα: <span className="text-white font-medium">{name}</span></span>
               <span className="text-white/20">|</span>
-              <span className="text-white/60">Τραπέζι: <span className="text-brand-pink font-bold">#{selectedTable}</span></span>
+              <span className="text-white/60">Τραπέζι: <span className="text-brand-pink font-bold">#{bookingResult.tableNo}</span></span>
               <span className="text-white/20">|</span>
               <span className="text-white/60">Άτομα: <span className="text-white font-medium">{guests}</span></span>
             </div>
@@ -68,16 +67,16 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setError("")
-    if (!selectedTable) { setError("Επίλεξε ένα τραπέζι πρώτα"); return }
     setLoading(true)
     try {
       const res = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email: email || undefined, tableNo: selectedTable, guests: Number(guests), notes: notes || undefined }),
+        body: JSON.stringify({ name, phone, email: email || undefined, guests: Number(guests), notes: notes || undefined }),
       })
       const data = await res.json()
       if (!res.ok) { setError(data.error || "Κάτι πήγε στραβά"); return }
+      setBookingResult(data.booking)
       setSuccess(true)
       onSuccess()
     } catch { setError("Αποτυχία σύνδεσης. Δοκίμασε ξανά.") }
@@ -88,28 +87,12 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
     <section className="max-w-lg mx-auto px-6 py-10" id="booking">
       <div className="text-center mb-6">
         <h2 className="font-heading text-2xl md:text-3xl font-bold text-white mb-2">
-          Στοιχεία Κράτησης
+          Κράτηση Τραπεζιού
         </h2>
-        {selectedTable ? (
-          <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-1.5 text-sm">
-            <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-            </svg>
-            <span className="text-white/60">Τραπέζι</span>
-            <span className="font-bold text-brand-pink">#{selectedTable}</span>
-          </div>
-        ) : (
-          <p className="text-sm text-amber-400/80 flex items-center justify-center gap-1">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" />
-            </svg>
-            Επίλεξε τραπέζι πρώτα
-          </p>
-        )}
+        <p className="text-sm text-white/40">Συμπλήρωσε τα στοιχεία σου και κλείσε θέση!</p>
       </div>
 
       <div className="card p-6 md:p-8">
-        {/* Trust badge */}
         <div className="flex items-center justify-center gap-2 mb-5 pb-5 border-b border-white/5">
           <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
@@ -160,7 +143,7 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
           )}
 
           <div className="pt-2">
-            <button type="submit" disabled={loading || !selectedTable} className="btn-primary w-full py-4 text-base">
+            <button type="submit" disabled={loading} className="btn-primary w-full py-4 text-base">
               {loading ? (
                 <span className="flex items-center gap-2">
                   <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -169,7 +152,7 @@ export default function BookingForm({ selectedTable, isFull, onSuccess }: Bookin
                   </svg>
                   Αποστολή...
                 </span>
-              ) : "Ολοκλήρωση Κράτησης"}
+              ) : "Κλείσε Τραπέζι"}
             </button>
           </div>
 
